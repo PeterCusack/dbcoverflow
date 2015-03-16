@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
 
+  get 'questions/index'
+
   resources :questions, only: [:index, :show]
-  root 'welcome#index'
+  root 'questions#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

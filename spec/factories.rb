@@ -3,4 +3,9 @@ FactoryGirl.define do
     f.title {Faker::Lorem.sentence(3)}
     f.content {Faker::Lorem.paragraph(2)}
   end
+
+  factory :answer do |f|
+    f.title {Faker::Lorem.sentence(3)}
+    f.content {Faker::Lorem.paragraph(2)}
+  end
 end

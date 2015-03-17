@@ -1,5 +1,3 @@
-
-
 describe Question, :js => true do
   # before(:each) do
   # end

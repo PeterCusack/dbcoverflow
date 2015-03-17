@@ -1,5 +1,6 @@
 class AnswersController < ApplicationController
   def create
+    sleep(10)
     @question = Question.find(params[:question_id])
     @answer = Answer.new(answer_params)
     if @answer.save

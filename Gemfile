@@ -28,11 +28,14 @@ gem 'spring',        group: :development
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
-group :test do 
+group :test do
 	gem 'faker'
 	gem 'capybara'
 	gem 'guard-rspec'
-  gem 'shoulda-matchers'	
+  gem 'shoulda-matchers'
+  gem 'selenium-webdriver'
+  gem "chromedriver-helper"
+  gem 'database_cleaner'
 end
 
 group :test, :development do

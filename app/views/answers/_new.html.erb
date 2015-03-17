@@ -1,0 +1,14 @@
+<%= form_for :answer, url: answers_path do |f| %>
+<%=  hidden_field_tag 'question_id', "#{@question.id}"%>
+  <p>
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </p>
+  <p>
+    <%= f.label :content %><br>
+    <%= f.text_area :content %>
+  </p>
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>

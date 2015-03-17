@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Question, type: :model do
+		it "has a valid factory" 
+		it "is invalid without a firstname" 
+		it "is invalid without a lastname" 
+		it "returns a contact's full name as a string"
 end
 
 RSpec.describe Question, type: :routing do

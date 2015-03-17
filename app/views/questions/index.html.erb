@@ -1,2 +1,6 @@
-<h1>Questions#index</h1>
-<p>Find me in app/views/questions/index.html.erb</p>
+<h1>Questions</h1>
+<%= content_tag_for(:li, @questions) do |question| %>
+  <strong><%= link_to question.title, question_path(question) %></strong>-
+  <%= question.content %>
+<% end %>
+

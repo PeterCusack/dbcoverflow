@@ -33,6 +33,7 @@ group :test, :development do
   gem 'capybara'
   gem 'shoulda-matchers'
   gem 'factory_girl'
+  gem 'factory_girl_rails'
 end
 # Use unicorn as the app server
 # gem 'unicorn'

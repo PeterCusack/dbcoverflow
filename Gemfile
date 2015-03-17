@@ -28,11 +28,15 @@ gem 'spring',        group: :development
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
+group :test do 
+	gem 'faker'
+	gem 'capybara'
+	gem 'guard-rspec'
+  gem 'shoulda-matchers'	
+end
+
 group :test, :development do
   gem 'rspec-rails'
-  gem 'capybara'
-  gem 'shoulda-matchers'
-  gem 'factory_girl'
   gem 'factory_girl_rails'
 end
 # Use unicorn as the app server

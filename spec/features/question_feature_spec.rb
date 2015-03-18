@@ -17,4 +17,5 @@ describe Question, :js => true do
     click_on(question.title)
     expect(page).to have_content(question.content)
   end
+
 end

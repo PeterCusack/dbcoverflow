@@ -6,7 +6,7 @@ describe Answer, :js => true do
     title = Faker::Lorem.sentence(2)
     fill_in 'Title', with: title
     fill_in 'Content', with: Faker::Lorem.paragraph(2)
-    click_on ('Save Answer')
+    click_on ('Create Answer')
     expect(page).to have_content(title)
   end
 end

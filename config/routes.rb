@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
 
 
+  resources :questions do
+    resources :answers, only: [:index, :new, :create]
+  end
+
   resources :answers
-  resources :questions
   root 'questions#index'
 
   # The priority is based upon order of creation: first created -> highest priority.

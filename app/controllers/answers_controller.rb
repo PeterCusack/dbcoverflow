@@ -1,9 +1,19 @@
 class AnswersController < ApplicationController
-  before_action :set_answer, only: [:index, :new]
+  before_action :set_answer, only: [:index, :new, :update]
   def index
   end
   def new
   end
+
+  def update
+    p "hello"
+    if @answer.update(answer_params)
+      # redirect_to question_path
+    else
+      # redirect_to question_path
+    end
+  end
+
   def create
     @question = Question.find(params[:question_id])
     @answer = Answer.new(answer_params)
@@ -18,7 +28,7 @@ class AnswersController < ApplicationController
 
   private
   def answer_params
-    params.require(:answer).permit(:title, :content)
+    params.require(:answer).permit(:title, :content, :votes)
   end
   def set_answer
     @answer = Answer.find(params[:id])

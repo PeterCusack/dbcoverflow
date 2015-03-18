@@ -9,9 +9,16 @@
   <strong>Content:</strong>
   <%= @question.content %>
 </p>
+
+<p>
+  Total Votes:<%= @question.votes %>
+</p>
 <%= content_tag_for(:li, @answers) do |answer|%>
   <%= answer.title %>
   <%= answer.content %>
+  Total Votes: <%= answer.votes %>
+    <%= button_to 'Upvote', question_answer_path(@question.id,  answer, method: :put)%>
+  <%= button_to 'Downvote', question_answer_path(@question.id, answer, method: :put)%>
 <% end %>
 <%= render "answers/new"%>
 <%= link_to 'Back', questions_path %>

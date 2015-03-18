@@ -16,7 +16,7 @@
 <%= content_tag_for(:li, @answers) do |answer|%>
   <%= answer.title %>
   <%= answer.content %>
-  Total Votes: <%= answer.votes %>
+  Total Votes:  <div class="total_votes"> <%= answer.votes %> </div>
     <%= button_to 'Upvote', question_answer_path(@question, answer, answer: {votes: answer.votes + 1}), method: :put%>
   <%= button_to 'Downvote', question_answer_path(@question, answer, answer: {votes: answer.votes - 1}), method: :put%>
 <% end %>

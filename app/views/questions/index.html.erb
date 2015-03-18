@@ -7,7 +7,7 @@
 
   <%= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' } %>
   <%= link_to 'Edit', edit_question_path(question) %>
-  Total Votes: <%= question.votes %>
+  Total Votes:<div class="total_votes"> <%= question.votes %></div>
   <%= button_to 'Upvote', question_path(question, question: {votes: (question.votes + 1)}), method: :put%>
   <%= button_to 'Downvote', question_path(question, question: {votes: (question.votes - 1)}), method: :put%>
 <% end %>

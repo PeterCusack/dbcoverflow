@@ -15,17 +15,18 @@ require "sprockets/railtie"
 
 module DbcOverflow
   class Application < Rails::Application
+
     Bundler.require(*Rails.groups)
     config.generators do |g|
-     g.test_framework :rspec, 
-     :fixtures => true, 
-     :view_specs => true, 
-     :helper_specs => true, 
-     :routing_specs => true, 
-     :controller_specs => true, 
-     :request_specs => true 
-     g.fixture_replacement :factory_girl, :dir => "spec/factories" 
-    end 
+     g.test_framework :rspec,
+     :fixtures => true,
+     :view_specs => true,
+     :helper_specs => true,
+     :routing_specs => true,
+     :controller_specs => true,
+     :request_specs => true
+     g.fixture_replacement :factory_girl, :dir => "spec/factories"
+    end
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.

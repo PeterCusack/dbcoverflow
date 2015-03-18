@@ -8,9 +8,9 @@ class AnswersController < ApplicationController
   def update
     p "hello"
     if @answer.update(answer_params)
-      # redirect_to question_path
+      redirect_to question_path(params[:question_id])
     else
-      # redirect_to question_path
+      redirect_to question_path(params[:question_id])
     end
   end
 

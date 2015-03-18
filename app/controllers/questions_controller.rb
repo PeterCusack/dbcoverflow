@@ -8,6 +8,17 @@ class QuestionsController < ApplicationController
     @question = Question.new
   end
 
+  def edit
+  end
+
+  def update
+     if @question.update(question_params)
+      redirect_to root_path
+    else
+      render 'edit'
+    end
+  end
+
   def create
     @question = Question.new(question_params)
     if @question.save

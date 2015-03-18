@@ -18,4 +18,11 @@ describe Question, :js => true do
     expect(page).to have_content(question.content)
   end
 
+
+  it "edit link page has a form with the content preloaded" do
+    @question = FactoryGirl.create(:question)
+    visit root_path
+    page.all(:link,"Edit")[0].click
+    expect(page.has_field?('Title', :with => @question.title)).to be(true)
+  end
 end

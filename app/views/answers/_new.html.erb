@@ -1,4 +1,5 @@
-<%= form_for [@question, @question.answers.build] do |f| %>
+<%= form_for [@question, @question.answers.build], :html => {:class => "answer"} do |f| %>
+  <%= hidden_field_tag :question_id, @question.id %>
   <p>
     <%= f.label :title %>
     <%= f.text_field :title %>
@@ -8,6 +9,6 @@
     <%= f.text_area :content %>
   </p>
   <p>
-    <%= f.submit %>
+    <%= f.submit :class => 'answer new_form'%>
   </p>
 <% end %>

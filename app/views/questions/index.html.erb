@@ -2,24 +2,26 @@
 <%= @quote.quote %>
 <%= render "new" %>
 <div class="questions">
-<%= content_tag_for(:li, @questions) do |question| %>
+  <% @questions.each do |question| %>
+    <li id='<%= question.id%>'>
+      <strong><%= link_to question.title, question_path(question) %></strong>-
+      <%= question.content %>
 
-  <strong><%= link_to question.title, question_path(question) %></strong>-
-  <%= question.content %>
-
-  <%= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' } %>
-  <%= link_to 'Edit', edit_question_path(question) %>
-  Total Votes:<div class="total_votes"> <%= question.votes %></div>
-  <%= button_tag 'upvote', class: 'upvote' %>
-  <%= button_tag 'downvote', class: 'downvote'%>
-<% end %>
+      <%= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' } %>
+      <%= link_to 'Edit', edit_question_path(question) %>
+      Total Votes:<div class="total_votes"> <%= question.votes %></div>
+      <%= button_tag 'upvote', class: 'upvote vote question' %>
+      <%= button_tag 'downvote', class: 'downvote vote question'%>
+    </li>
+  <% end %>
 </div>
+
 <script type="text/javascript" class="question_template">
   <div id = {{question.id}}>
-    {{question.title}}
+    <a href="questions/{{question.id}}">{{question.title}}</a>
     {{question.content}}
     <div class="total_votes"> {{question.votes}} </div>
-    <button type="button" class="upvote">Upvote</button>
-    <button type="button" class="downvote">Downvote</button>
+    <button type="button" class="upvote vote question">Upvote</button>
+    <button type="button" class="downvote vote question">Downvote</button>
   </div>
 </script>

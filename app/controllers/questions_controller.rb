@@ -1,5 +1,5 @@
 class QuestionsController < ApplicationController
-    before_action :set_question, only: [:show, :edit, :update, :destroy]
+    before_action :set_question, only: [:show, :edit, :update, :destroy, :upvote, :downvote]
   def index
     @quote = Quote.new
     @questions = Question.all
@@ -12,9 +12,27 @@ class QuestionsController < ApplicationController
   def edit
   end
 
+  def upvote
+    new_vote_count = params[:questions][:votes].to_i
+    new_vote_count += 1
+    @question.update(
+      votes: new_vote_count
+    )
+    render json: @question
+  end
+
+  def downvote
+    new_vote_count = params[:questions][:votes].to_i
+    new_vote_count -= 1
+    @question.update(
+      votes: new_vote_count
+    )
+    render json: @question
+  end
+
   def update
     if @question.update(question_params)
-      render json: @question
+      redirect_to root_path
     else
       render 'edit'
     end

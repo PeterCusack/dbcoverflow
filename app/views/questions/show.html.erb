@@ -13,13 +13,25 @@
 <p>
   Total Votes:<%= @question.votes %>
 </p>
-<%= content_tag_for(:li, @answers) do |answer|%>
-  <%= answer.title %>
-  <%= answer.content %>
-  Total Votes:  <div class="total_votes"> <%= answer.votes %> </div>
-    <%= button_to 'Upvote', question_answer_path(@question, answer, answer: {votes: answer.votes + 1}), method: :put%>
-  <%= button_to 'Downvote', question_answer_path(@question, answer, answer: {votes: answer.votes - 1}), method: :put%>
+<div class="answers">
+<%  @answers.each do |answer|%>
+  <li id="<%= answer.id %>">
+    <%= answer.title %>
+    <%= answer.content %>
+    Total Votes:  <div class="total_votes"> <%= answer.votes %> </div>
+      <%= button_tag 'upvote', :class => "upvote vote answer"%>
+    <%= button_tag 'downvote', :class => "downvote vote answer"%>
+  </li>
 <% end %>
 <%= render "answers/new"%>
+</div>
 <%= link_to 'Back', questions_path %>
-
+<script type="text/javascript" class="question_template">
+  <div id = {{answer.id}}>
+    {{answer.title}}
+    {{answer.content}}
+    <div class="total_votes"> {{answer.votes}} </div>
+    <button type="button" class="upvote vote answer">Upvote</button>
+    <button type="button" class="downvote vote answer">Downvote</button>
+  </div>
+</script>

@@ -1,8 +1,28 @@
 class AnswersController < ApplicationController
-  before_action :set_answer, only: [:index, :new, :update]
+  before_action :set_answer, only: [:index, :new, :update, :upvote, :downvote]
+
   def index
   end
+
   def new
+  end
+
+  def upvote
+    new_vote_count = params[:answers][:votes].to_i
+    new_vote_count += 1
+    @answer.update(
+      votes: new_vote_count
+    )
+    render json: @answer
+  end
+
+  def downvote
+    new_vote_count = params[:answers][:votes].to_i
+    new_vote_count -= 1
+    @answer.update(
+      votes: new_vote_count
+    )
+    render json: @answer
   end
 
   def update
@@ -18,10 +38,9 @@ class AnswersController < ApplicationController
     @answer = Answer.new(answer_params)
     if @answer.save
       @question.answers << @answer
-      redirect_to questions_path + "/#{@question.id}"
+      render json: @answer
     else
       @errors = errors.full_messages
-      redirect_to questions_path
     end
   end
 

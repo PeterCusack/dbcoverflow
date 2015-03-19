@@ -13,7 +13,7 @@ class QuestionsController < ApplicationController
   end
 
   def upvote
-    new_vote_count = params[:question][:votes].to_i
+    new_vote_count = params[:questions][:votes].to_i
     new_vote_count += 1
     @question.update(
       votes: new_vote_count
@@ -22,7 +22,7 @@ class QuestionsController < ApplicationController
   end
 
   def downvote
-    new_vote_count = params[:question][:votes].to_i
+    new_vote_count = params[:questions][:votes].to_i
     new_vote_count -= 1
     @question.update(
       votes: new_vote_count

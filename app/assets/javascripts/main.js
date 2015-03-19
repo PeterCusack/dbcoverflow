@@ -1,53 +1,75 @@
+
+/////////////////// Handles all votes //////
 var Modal = {
-  findVoteRouteAndData: function(voteObject){
+  findVoteRouteAndDataForVotes: function(voteObject){
     var voteType = voteObject.hasClass("upvote") ? "upvote" : "downvote";
     var voteFor = voteObject.hasClass("question") ? "questions" : "answers";
     var id = voteObject.parent().attr('id');
     var voteCount = parseInt(voteObject.siblings(".total_votes").html());
-    return  {
+    var sendData = {};
+    sendData[voteFor] = {
+        id: id,
+        votes: voteCount
+      };
+    var ajaxInfo = {
+      voteFor: voteFor,
       url:'/' + voteFor + '/' + id + "/" + voteType,
-      sendData: {
-        question: {
-          id: id,
-          votes: voteCount
-        }
-    },
-  };
+    };
+    ajaxInfo['sendData'] = sendData;
+    return ajaxInfo;
   },
+
+/////////////////// Handles all creation //////
+  findVoteRouteAndDataForCreation: function(formOject){
+    var formFor = $(formOject).hasClass("question") ? "question" : "answer";
+    // var question_id = question_id ? 
+    var title = $(formOject).find('#'+formFor+'_title').val();
+    var content = $(formOject).find('#'+formFor+'_content').val();
+    var question_id = formOject.find("#question_id").val()
+    var url = formFor + "s";
+    var sendData = {question_id: question_id};
+    sendData[formFor] =  {
+          title: title,
+          content: content
+        };
+      var ajaxInfo = {
+      url: url,
+      };
+      ajaxInfo['sendData'] = sendData;
+      return ajaxInfo;
+  },
+
 };
 
 var View = {
   startListeners: function(){
-    $(".new_question_form").click(function(event){
+    $(".new_form").click(function(event){
       event.preventDefault();
-      sendData = {
-        question: {
-          title: $(this.form).find('#question_title').val(),
-          content: $(this.form).find('#question_content').val()
-        }
-      };
+      ajaxInfo = Modal.findVoteRouteAndDataForCreation($(this.form))
       $.ajax({
-        url: '/questions',
+        url: "/" + ajaxInfo.url,
         method: 'post',
-        data: sendData
-      }).success(function(question){
-        var html = Templates.question({question: question});
-        $(".questions").prepend(html);
+        data: ajaxInfo.sendData
+      }).success(function(dataResponse){
+        Templates.question = Handlebars.compile($(".question_template").html());
+        var html = Templates.question({question: dataResponse, answer: dataResponse});
+        $("." + ajaxInfo.url).prepend(html);
         View.startVoteListener();
       });
     });
+
   },
 
   startVoteListener: function(){
     $('.vote').on('click', function(event) {
       event.preventDefault();
-      ajaxInfo = Modal.findVoteRouteAndData($(this))
+      ajaxInfo = Modal.findVoteRouteAndDataForVotes($(this))
       $.ajax({
         url: ajaxInfo.url,
         type: 'post',
         data: ajaxInfo.sendData
       }).success(function(vote){
-        $(".questions").find('#'+vote.id).find(".total_votes").html(vote.votes)
+        $("." + ajaxInfo.voteFor).find('#'+vote.id).find(".total_votes").html(vote.votes)
       }).fail(function () {
         console.log('something went wrong');
       });
@@ -58,7 +80,6 @@ var View = {
 Templates = {}
 
 $(document).ready(function(){
-  Templates.question = Handlebars.compile($(".question_template").html());
   View.startListeners();
   View.startVoteListener();
 })

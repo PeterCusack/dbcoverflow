@@ -2,7 +2,7 @@
 <%= @quote.quote %>
 <%= render "new" %>
 <div class="questions">
-  <%= @questions.each do |question| %>
+  <% @questions.each do |question| %>
     <li id='<%= question.id%>'>
       <strong><%= link_to question.title, question_path(question) %></strong>-
       <%= question.content %>
@@ -15,9 +15,10 @@
     </li>
   <% end %>
 </div>
+
 <script type="text/javascript" class="question_template">
   <div id = {{question.id}}>
-    {{question.title}}
+    <a href="questions/{{question.id}}">{{question.title}}</a>
     {{question.content}}
     <div class="total_votes"> {{question.votes}} </div>
     <button type="button" class="upvote vote question">Upvote</button>

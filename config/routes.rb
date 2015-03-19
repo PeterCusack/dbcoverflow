@@ -2,6 +2,10 @@ Rails.application.routes.draw do
 
 
   resources :questions do
+    member do 
+      post 'upvote'
+      post 'downvote'
+    end
     resources :answers, only: [:index, :new, :create, :update]
   end
 

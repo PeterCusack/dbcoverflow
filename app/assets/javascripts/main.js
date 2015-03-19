@@ -1,3 +1,21 @@
+var Modal = {
+  findVoteRouteAndData: function(voteObject){
+    var voteType = voteObject.hasClass("upvote") ? "upvote" : "downvote";
+    var voteFor = voteObject.hasClass("question") ? "questions" : "answers";
+    var id = voteObject.parent().attr('id');
+    var voteCount = parseInt(voteObject.siblings(".total_votes").html());
+    return  {
+      url:'/' + voteFor + '/' + id + "/" + voteType,
+      sendData: {
+        question: {
+          id: id,
+          votes: voteCount
+        }
+    },
+  };
+  },
+};
+
 var View = {
   startListeners: function(){
     $(".new_question_form").click(function(event){
@@ -19,29 +37,19 @@ var View = {
       });
     });
   },
+
   startVoteListener: function(){
-    $('.upvote').on('click', function(event) {
+    $('.vote').on('click', function(event) {
       event.preventDefault();
-      console.log("we're here");
-      var voteCount = parseInt($('.total_votes').eq(0).html());
-      var id = $(this).parent().attr('id');
-      var url = '/questions/' + id
-      voteCount ++;
-      var sendData = {
-        question: {
-          id: id,
-          votes: voteCount
-        }
-      };
-    // var sendData = {upvote: voteCount};
+      ajaxInfo = Modal.findVoteRouteAndData($(this))
       $.ajax({
-        url: url,
-        type: 'put',
-        data: sendData
+        url: ajaxInfo.url,
+        type: 'post',
+        data: ajaxInfo.sendData
       }).success(function(vote){
-        console.log("we're here too");
+        $(".questions").find('#'+vote.id).find(".total_votes").html(vote.votes)
       }).fail(function () {
-        console.log('some shit happened here');
+        console.log('something went wrong');
       });
    });
   }

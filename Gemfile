@@ -42,6 +42,9 @@ end
 group :test, :development do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
+  gem 'better_errors'
+  gem "binding_of_caller"
+  gem 'pry-byebug'
 end
 # Use unicorn as the app server
 # gem 'unicorn'

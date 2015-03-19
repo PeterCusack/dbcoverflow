@@ -1,6 +1,7 @@
 <h1>Questions</h1>
 <%= @quote.quote %>
 <%= render "new" %>
+<div class="questions">
 <%= content_tag_for(:li, @questions) do |question| %>
 
   <strong><%= link_to question.title, question_path(question) %></strong>-
@@ -9,7 +10,16 @@
   <%= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' } %>
   <%= link_to 'Edit', edit_question_path(question) %>
   Total Votes:<div class="total_votes"> <%= question.votes %></div>
-  <%= button_to 'Upvote', question_path(question, question: {votes: (question.votes + 1)}), method: :put%>
-  <%= button_to 'Downvote', question_path(question, question: {votes: (question.votes - 1)}), method: :put%>
+  <%= button_tag 'upvote', class: 'upvote' %>
+  <%= button_tag 'downvote', class: 'downvote'%>
 <% end %>
-
+</div>
+<script type="text/javascript" class="question_template">
+  <div id = {{question.id}}>
+    {{question.title}}
+    {{question.content}}
+    <div class="total_votes"> {{question.votes}} </div>
+    <button type="button" class="upvote">Upvote</button>
+    <button type="button" class="downvote">Downvote</button>
+  </div>
+</script>

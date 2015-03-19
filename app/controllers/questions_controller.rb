@@ -13,8 +13,8 @@ class QuestionsController < ApplicationController
   end
 
   def update
-     if @question.update(question_params)
-      redirect_to root_path
+    if @question.update(question_params)
+      render json: @question
     else
       render 'edit'
     end
@@ -23,10 +23,9 @@ class QuestionsController < ApplicationController
   def create
     @question = Question.new(question_params)
     if @question.save
-      redirect_to root_path
+      render json: @question
     else
       @errors = @question.errors.full_messages
-      redirect_to root_path
     end
   end
 

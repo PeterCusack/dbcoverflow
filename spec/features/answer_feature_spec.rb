@@ -16,7 +16,7 @@ describe Answer, :js => true do
     @question.answers << FactoryGirl.create(:answer)
     visit questions_path + "/#{Question.first.id}"
     before_vote_count = page.find(".total_votes").text.to_i
-    click_on('Upvote')
+    click_on('upvote')
     expect(page.find(".total_votes").text.to_i).to eq(before_vote_count + 1)
   end
 
@@ -25,7 +25,8 @@ describe Answer, :js => true do
     @question.answers << FactoryGirl.create(:answer)
     visit questions_path + "/#{Question.first.id}"
     before_vote_count = page.find(".total_votes").text.to_i
-    click_on('Downvote')
+    click_on('downvote')
+    sleep(20)
     expect(page.find(".total_votes").text.to_i).to eq(before_vote_count - 1)
   end
 end

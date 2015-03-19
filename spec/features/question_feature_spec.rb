@@ -31,7 +31,7 @@ describe Question, :js => true do
     @question = FactoryGirl.create(:question)
     visit root_path
     before_vote_count = page.find(".total_votes").text.to_i
-    click_on('Upvote')
+    click_on('upvote')
     expect(page.find(".total_votes").text.to_i).to eq(before_vote_count + 1)
   end
 
@@ -39,7 +39,7 @@ describe Question, :js => true do
     @question = FactoryGirl.create(:question)
     visit root_path
     before_vote_count = page.find(".total_votes").text.to_i
-    click_on('Downvote')
+    click_on('downvote')
     expect(page.find(".total_votes").text.to_i).to eq(before_vote_count - 1)
   end
 end

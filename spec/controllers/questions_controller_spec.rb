@@ -18,13 +18,13 @@ describe "POST #create" do
     post :create, question: {content: "test content"}
     expect(assigns(:question)).to_not be_valid
   end
-  it 'redirects if question does not pass validations' do
+  it 'redirects with ajax' do
     post :create, question: {content: "test content"}
-    expect(response).to be_redirect
+    expect(response).to_not be_redirect
   end
-  it "redirects if question pass validations" do
+  it "redirects with ajax" do
     post :create, question: {title: "create test", content: "test content"}
-    expect(response).to be_redirect
+    expect(response).to_not be_redirect
   end
 end
 

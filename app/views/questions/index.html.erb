@@ -9,9 +9,8 @@
     <li id='<%= question.id%>'>
       <strong><%= link_to question.title, question_path(question) %></strong>-
       <%= question.content %>
-
-      <%= button_tag 'Destroy'%>
-      <%= button_tag 'Edit'%>
+      <%= button_to 'Delete', question, method: :delete, data: { confirm: 'Are you sure?' }%>
+      <%= button_to 'Edit', edit_question_path(question), method: :get %>
       Total Votes:<span class="total_votes"><%= question.votes %></span>
       <%= button_tag 'upvote', class: 'upvote vote question' %>
       <%= button_tag 'downvote', class: 'downvote vote question'%>
@@ -23,8 +22,8 @@
     <li id = {{question.id}}>
     <strong><a href="questions/{{question.id}}">{{question.title}}</a></strong>
     {{question.content}}
-    <button type="button">Destroy</button>
-    <button type="button">Edit</button>
+    <button class="delete_button">Delete</button>
+    <button class="edit_button">Edit</button>
     Total Votes:<span class="total_votes"> {{question.votes}} </span>
     <button type="button" class="upvote vote question">Upvote</button>
     <button type="button" class="downvote vote question">Downvote</button>

@@ -13,20 +13,23 @@
 <p>
   Total Votes:<%= @question.votes %>
 </p>
+<%= render "answers/new"%>
 <div class="answers">
 <%  @answers.each do |answer|%>
   <li id="<%= answer.id %>">
-    <%= answer.title %>
+    <strong><%= answer.title %></strong>-
     <%= answer.content %>
-    Total Votes:  <div class="total_votes"> <%= answer.votes %> </div>
+    <%= button_tag 'Delete'%>
+    <%= button_tag 'Edit'%>
+    Total Votes:  <span class="total_votes"><%= answer.votes %></span>
       <%= button_tag 'upvote', :class => "upvote vote answer"%>
-    <%= button_tag 'downvote', :class => "downvote vote answer"%>
+      <%= button_tag 'downvote', :class => "downvote vote answer"%>
   </li>
 <% end %>
-<%= render "answers/new"%>
 </div>
 <%= link_to 'Back', questions_path %>
-<script type="text/x-handlebars-template" class="question_template">
+
+<script type="text/x-handlebars-template" class="answer_template">
   <div id = {{answer.id}}>
     {{answer.title}}
     {{answer.content}}

@@ -1,15 +1,18 @@
 <h1>Questions</h1>
 <%= @quote.quote %>
 <%= render "new" %>
+<div class="markdown-preview">
+
+</div>
 <div class="questions">
-  <% @questions.each do |question| %>
+  <% @questions.reverse.each do |question| %>
     <li id='<%= question.id%>'>
       <strong><%= link_to question.title, question_path(question) %></strong>-
       <%= question.content %>
 
-      <%= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' } %>
-      <%= link_to 'Edit', edit_question_path(question) %>
-      Total Votes:<div class="total_votes"> <%= question.votes %></div>
+      <%= button_tag 'Destroy'%>
+      <%= button_tag 'Edit'%>
+      Total Votes:<span class="total_votes"><%= question.votes %></span>
       <%= button_tag 'upvote', class: 'upvote vote question' %>
       <%= button_tag 'downvote', class: 'downvote vote question'%>
     </li>
@@ -17,11 +20,13 @@
 </div>
 
 <script type="text/x-handlebars-template" class="question_template">
-  <div id = {{question.id}}>
-    <a href="questions/{{question.id}}">{{question.title}}</a>
+    <li id = {{question.id}}>
+    <strong><a href="questions/{{question.id}}">{{question.title}}</a></strong>
     {{question.content}}
-    <div class="total_votes"> {{question.votes}} </div>
+    <button type="button">Destroy</button>
+    <button type="button">Edit</button>
+    Total Votes:<span class="total_votes"> {{question.votes}} </span>
     <button type="button" class="upvote vote question">Upvote</button>
     <button type="button" class="downvote vote question">Downvote</button>
-  </div>
+  </li>
 </script>

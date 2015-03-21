@@ -13,20 +13,15 @@ class QuestionsController < ApplicationController
   end
 
   def upvote
-    new_vote_count = params[:questions][:votes].to_i
-    new_vote_count += 1
-    @question.update(
-      votes: new_vote_count
-    )
+    add_vote = @question.votes + 1
+    @question.update(votes: add_vote)
     render json: @question
   end
 
   def downvote
-    new_vote_count = params[:questions][:votes].to_i
-    new_vote_count -= 1
-    @question.update(
-      votes: new_vote_count
-    )
+    delete_vote = @question.votes - 1
+    @question.update(votes: delete_vote)
+
     render json: @question
   end
 
@@ -56,6 +51,7 @@ class QuestionsController < ApplicationController
     @question.destroy
     redirect_to root_path
   end
+
   private
 
   def set_question

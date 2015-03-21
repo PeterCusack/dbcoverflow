@@ -1,19 +1,17 @@
 <h1>Questions</h1>
 <%= @quote.quote %>
 <%= render "new" %>
-<div class="markdown-preview">
 
-</div>
 <div class="questions">
   <% @questions.reverse.each do |question| %>
     <li id='<%= question.id%>'>
       <strong><%= link_to question.title, question_path(question) %></strong>-
       <%= question.content %>
-      <%= button_to 'Delete', question, method: :delete, data: { confirm: 'Are you sure?' }%>
+      <%= button_tag 'Delete', class: 'delete_button'%>
       <%= button_to 'Edit', edit_question_path(question), method: :get %>
       Total Votes:<span class="total_votes"><%= question.votes %></span>
-      <%= button_tag 'upvote', class: 'upvote vote question' %>
-      <%= button_tag 'downvote', class: 'downvote vote question'%>
+      <%= button_tag 'upvote', class: 'upvote' %>
+      <%= button_tag 'downvote', class: 'downvote'%>
     </li>
   <% end %>
 </div>
@@ -25,7 +23,7 @@
     <button class="delete_button">Delete</button>
     <button class="edit_button">Edit</button>
     Total Votes:<span class="total_votes"> {{question.votes}} </span>
-    <button type="button" class="upvote vote question">Upvote</button>
-    <button type="button" class="downvote vote question">Downvote</button>
+    <button type="button" class="upvote">Upvote</button>
+    <button type="button" class="downvote">Downvote</button>
   </li>
 </script>

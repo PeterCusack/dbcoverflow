@@ -13,28 +13,33 @@
 <p>
   Total Votes:<%= @question.votes %>
 </p>
-<%= render "answers/new"%>
+
 <div class="answers">
-<%  @answers.each do |answer|%>
+<% @answers.reverse.each do |answer|%>
   <li id="<%= answer.id %>">
-    <strong><%= answer.title %></strong>-
+    <strong><%= link_to answer.title, edit_question_answer_path(@question, answer)%></strong>-
     <%= answer.content %>
-    <%= button_tag 'Delete'%>
-    <%= button_tag 'Edit'%>
+    <%= button_tag 'Delete', class: 'delete_button'%>
+    <%= button_to 'Edit', edit_question_answer_path(@question, answer), method: :get %>
     Total Votes:  <span class="total_votes"><%= answer.votes %></span>
-      <%= button_tag 'upvote', :class => "upvote vote answer"%>
-      <%= button_tag 'downvote', :class => "downvote vote answer"%>
+    <%= button_tag 'upvote', class: 'upvote' %>
+    <%= button_tag 'downvote', class: 'downvote'%>
   </li>
 <% end %>
 </div>
+
+<%= render "answers/new"%>
+
 <%= link_to 'Back', questions_path %>
 
 <script type="text/x-handlebars-template" class="answer_template">
-  <div id = {{answer.id}}>
-    {{answer.title}}
+   <li id = {{answer.id}}>
+    <strong>{{answer.title}}</strong> -
     {{answer.content}}
-    <div class="total_votes"> {{answer.votes}} </div>
-    <button type="button" class="upvote vote answer">Upvote</button>
-    <button type="button" class="downvote vote answer">Downvote</button>
-  </div>
+    <button class="delete_button">Delete</button>
+    <button class="edit_button">Edit</button>
+    Total Votes:<span class="total_votes"> {{answer.votes}} </span>
+    <button type="button" class='upvote'>Upvote</button>
+    <button type="button" class='downvote'>Downvote</button>
+  </li>
 </script>

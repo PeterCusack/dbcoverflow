@@ -1,5 +1,5 @@
 class AnswersController < ApplicationController
-  before_action :set_answer, only: [:index, :new, :update, :upvote, :downvote]
+  before_action :set_answer, only: [:index, :new, :update, :upvote, :downvote, :edit, :destroy]
 
   def index
   end
@@ -7,29 +7,27 @@ class AnswersController < ApplicationController
   def new
   end
 
+  def edit
+    @question = Question.find(params[:question_id])
+  end
+
   def upvote
-    new_vote_count = params[:answers][:votes].to_i
-    new_vote_count += 1
-    @answer.update(
-      votes: new_vote_count
-    )
+    add_vote = @answer.votes + 1
+    @answer.update(votes: add_vote)
     render json: @answer
   end
 
   def downvote
-    new_vote_count = params[:answers][:votes].to_i
-    new_vote_count -= 1
-    @answer.update(
-      votes: new_vote_count
-    )
+    delete_vote = @answer.votes - 1
+    @answer.update(votes: delete_vote)
     render json: @answer
   end
 
   def update
     if @answer.update(answer_params)
-      redirect_to question_path(params[:question_id])
+      redirect_to question_path(@answer.question_id)
     else
-      redirect_to question_path(params[:question_id])
+      redirect_to question_path(@answer.question_id)
     end
   end
 
@@ -42,6 +40,11 @@ class AnswersController < ApplicationController
     else
       @errors = errors.full_messages
     end
+  end
+
+  def destroy
+    @answer.destroy
+    redirect_to question_path(@answer.question_id)
   end
 
   private
